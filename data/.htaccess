@@ -1,0 +1,10 @@
+# Block direct web access to the database file.
+# Works on Apache 2.4+ (most cPanel hosting). If your host is older Apache 2.2,
+# replace the two lines below with: Deny from all
+<IfModule mod_authz_core.c>
+    Require all denied
+</IfModule>
+<IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+</IfModule>

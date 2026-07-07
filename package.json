@@ -1,0 +1,9 @@
+{
+  "name": "omega-billing-tracker",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Omega Network client billing tracker - Vercel serverless backend",
+  "dependencies": {
+    "@vercel/postgres": "^0.10.0"
+  }
+}
