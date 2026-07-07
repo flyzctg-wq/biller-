@@ -1,7 +1,15 @@
 // Omega Network - Client Billing Tracker
-// Vercel serverless backend. Mirrors api.php's endpoints/behavior, backed by Vercel Postgres
-// (works because Vercel functions have no persistent disk - SQLite/file storage doesn't survive
-// between invocations there, so this uses a real hosted database instead).
+// Vercel serverless backend. Mirrors api.php's endpoints/behavior, backed by a Postgres
+// database (works because Vercel functions have no persistent disk - SQLite/file storage
+// doesn't survive between invocations there, so this uses a real hosted database instead).
+
+// @vercel/postgres specifically reads process.env.POSTGRES_URL. Depending on which Neon
+// install path was used in the Vercel Marketplace, only DATABASE_URL may get set instead
+// (Neon's docs confirm the variable name varies by integration variant) - so fall back to
+// that here rather than requiring one exact name.
+if (!process.env.POSTGRES_URL && process.env.DATABASE_URL) {
+  process.env.POSTGRES_URL = process.env.DATABASE_URL;
+}
 
 const { sql } = require('@vercel/postgres');
 const seed = require('./seed.json');
